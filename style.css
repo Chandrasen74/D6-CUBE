@@ -1,0 +1,170 @@
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: #000;
+  font-size: .4vmin;
+  display: grid;
+  place-items: center;
+  filter: saturate(2);
+}
+
+label, .scene, .dice, .face, :is(.face,label)::before, :is(.face,label)::after {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.scene {
+  width: 100em;
+  aspect-ratio: 1;
+  perspective: 250em;
+}
+
+.scene * {
+  inset: 0;
+}
+
+.dice {
+  transform: rotateX(calc(acos(tan(30deg)))) rotateY(45deg);
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    rotate: y 360deg;
+  }
+}
+
+.face {
+  background-image: repeating-radial-gradient(transparent 0, #000 7px), radial-gradient(at 0 0, hsl(calc(60deg*var(--step)) 100% 50% / .5), hsl(calc(60deg*(var(--step) + 1)) 100% 50% / .5));
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 2px solid hsl(calc(60deg*(var(--step) + .5)) 100% 50%);
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.face::before, .face::after {
+  content: '';
+  inset: calc((sin(45deg) - .5)*-100%);
+  mix-blend-mode: multiply;
+  animation: twirl 12s linear infinite;
+  animation-delay: calc(-2s*var(--step));
+}
+
+@keyframes twirl {
+  100% {
+    rotate: 1turn;
+  }
+}
+
+.face::before {
+  background-image: conic-gradient(black,#fff,black 40%, #fff,black 60%, #fff,black 90%, #fff, black);  
+}
+
+.face::after {
+  background-image: conic-gradient(black,#fff,black 30%, #fff,black 50%, #fff,black 60%, #fff, black);
+  animation-direction: reverse;
+}
+
+.face:nth-child(1) {
+  --step: 0;
+}
+
+.face:nth-child(2) {
+  --step: 1;
+}
+
+.face:nth-child(3) {
+  --step: 2;
+}
+
+.face:nth-child(4) {
+  --step: 3;
+}
+
+.face:nth-child(5) {
+  --step: 4;
+}
+
+.face:nth-child(6) {
+  --step: 5;
+}
+
+.side {
+  transform: rotateY(calc(90deg*var(--step))) translateZ(50em);
+}
+
+.lid {
+  transform: rotateX(calc(90deg*var(--dir))) translateZ(50em);
+}
+
+.lid:nth-child(odd) {
+  --dir: 1;
+}
+
+.lid:nth-child(2n) {
+  --dir: -1;
+}
+
+.dot {
+  background-image: radial-gradient(#fff 25%, #fff0 0);
+  z-index: 1;
+}
+
+#one .dot:not(:nth-child(5)),
+#two .dot:not(:nth-child(8n+1)),
+#three .dot:not(:nth-child(4n+1)),
+#four .dot:nth-child(5),
+:is(#four,#five) .dot:nth-child(2n),
+#six .dot:nth-child(3n+2) {
+  visibility: hidden;
+}
+
+input {
+  display: none;
+}
+
+label {
+  width: max(50em,90px);
+  margin: 60px;
+  aspect-ratio: 1;
+  place-self: start;
+  perspective: max(250em, 450px);
+}
+
+label::before, label::after {
+  content: '';
+  inset: 0;
+  transition: all .4s ease-in-out;
+}
+
+label::before {
+  background-image: repeating-conic-gradient(at 100% 50%, transparent 0,black 1%), linear-gradient(0deg, yellow, orange 20%, red, fuchsia);
+  background-size: 100% 100%, 100% 250%;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: rotateY(90deg) translateZ(25em);
+  border-left: 1px solid yellow;
+}
+
+label::after {
+  background-image: repeating-linear-gradient(transparent 0,black 2%), linear-gradient(45deg, purple, blue, green, yellow);
+  background-size: 100% 100%, 100% 250%;
+  clip-path: polygon(0 0, 0 100%, 35% 100%, 35% 0, 65% 0, 65% 100%, 100% 100%, 100% 0);
+  transform: rotateY(-90deg) translateZ(25em);
+  border: 1px solid;
+  border-color: fuchsia transparent blue lime;
+}
+
+#playPause:not(:checked) ~ .scene .dice,
+#playPause:not(:checked) ~ .scene .face::before,
+#playPause:not(:checked) ~ .scene .face::after {
+  animation-play-state: paused;
+}
+
+
+#playPause:checked ~ label::after,
+#playPause:not(:checked) ~ label::before {
+  transform: rotateY(0deg) translateZ(25em);
+  background-position-y: 100%;
+}
