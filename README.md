@@ -1,27 +1,45 @@
-# D6 CUBE
+# D6-CUBE
+
+**Live demo:** https://chandrasen74.github.io/D6-CUBE/  
+**Repository:** https://github.com/Chandrasen74/D6-CUBE
+
+![Screenshot of D6-CUBE](screenshot.png)
 
 ## Overview
-**D6-CUBE** is a JavaScript, HTML, CSS project with a browser-viewable demo (GitHub Pages).
+`D6-CUBE` is a HTML/CSS/JavaScript project.
+- **Primary language:** CSS
+- **Languages detected:** HTML, JavaScript, CSS
+- **Stack/tech:** HTML, CSS, JavaScript
+- **Entry point:** `index.html`
+- **Key files:** `index.html`
 
-- Primary language: **CSS**
-- Detected stack: JavaScript, HTML, CSS
-- HTML title: D6 CUBE
+## Language & stack details
+- Languages: HTML, JavaScript, CSS
+- Frameworks/tools/libraries: HTML, CSS, JavaScript
 
-**Live/demo:** https://chandrasen74.github.io/D6-CUBE/
+## How to install & run
+### Prerequisites
+- A modern web browser
+- (Optional) [Python 3](https://www.python.org/) or any static file server for local serving
 
-## Repository contents
-- `README.md`
-- `index.html`
-- `script.js`
-- `style.css`
-
-## Getting started
+### Run locally
 ```bash
 git clone https://github.com/Chandrasen74/D6-CUBE.git
 cd D6-CUBE
-# open index.html in a browser, or serve locally:
+```
+- **Option 1:** open `index.html` directly in your browser
+- **Option 2:** serve locally (recommended for some JS features):
+```bash
 python -m http.server 8000
+# then open http://localhost:8000
 ```
 
+## Repository structure (top-level/sample)
+- `README.md`
+- `index.html`
+- `screenshot.png`
+- `script.js`
+- `style.css`
+
 ## Status
-README generated/updated as part of a profile-wide documentation pass based on repository contents.
+Documented with screenshot, language/stack details, and setup instructions as part of a profile-wide README update.
